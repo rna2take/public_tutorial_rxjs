@@ -1,0 +1,399 @@
+:root {
+  --bg: #0f1420;
+  --panel: #161d2e;
+  --panel-2: #1d2640;
+  --line: #2a3349;
+  --text: #e7eaf2;
+  --muted: #98a2b8;
+  --source: #38bdf8; /* 入力ストリーム: スカイブルー */
+  --output: #fbbf24; /* 出力: アンバー */
+  --playhead: #f472b6; /* 再生ヘッド: ピンク */
+  --on-marble: #0f1420;
+  --radius: 12px;
+  --mono: "SFMono-Regular", ui-monospace, "JetBrains Mono", Menlo, Consolas,
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP",
+    sans-serif;
+  line-height: 1.6;
+}
+
+#app {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+/* ---- ヘッダー ---- */
+.app-header h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: 0.01em;
+}
+
+.app-header h1::before {
+  content: "⌁";
+  color: var(--source);
+  margin-right: 0.4rem;
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---- レイアウト ---- */
+.layout {
+  display: flex;
+  gap: 22px;
+  margin-top: 24px;
+  align-items: flex-start;
+}
+
+.scenario-list {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 16px;
+}
+
+.stage {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ---- シナリオ一覧 ---- */
+.scenario-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: 11px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+
+.scenario-link:hover {
+  border-color: var(--source);
+}
+
+.scenario-link:active {
+  transform: translateY(1px);
+}
+
+.scenario-link.is-active {
+  background: var(--panel-2);
+  border-color: var(--source);
+}
+
+.scenario-link__name {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--source);
+}
+
+.scenario-link__sub {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.scenario-link__tag {
+  align-self: flex-start;
+  margin-top: 3px;
+  font-size: 0.6rem;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.scenario-link__tag--live {
+  color: var(--playhead);
+  border-color: var(--playhead);
+}
+
+/* ---- 見出し ---- */
+.scenario-head h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.scenario-head h2 code {
+  font-family: var(--mono);
+  background: var(--panel-2);
+  color: var(--source);
+  padding: 2px 10px;
+  border-radius: 8px;
+}
+
+.scenario-head__sub {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.scenario-summary {
+  margin: 10px 0 0;
+  color: #c7cedd;
+  font-size: 0.92rem;
+}
+
+/* ---- 操作 ---- */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.btn:hover {
+  border-color: var(--muted);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btn--primary {
+  background: var(--source);
+  border-color: var(--source);
+  color: #082235;
+  font-weight: 700;
+  min-width: 116px;
+}
+
+.speed {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.speed select {
+  font: inherit;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+/* ---- 凡例 ---- */
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend__dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+
+.legend__dot--source {
+  background: var(--source);
+}
+
+.legend__dot--output {
+  background: var(--output);
+}
+
+.legend__bar {
+  width: 3px;
+  height: 15px;
+  background: var(--text);
+  border-radius: 2px;
+}
+
+/* ---- 図 ---- */
+.diagram-wrap {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+}
+
+.diagram {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.loading {
+  padding: 44px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.lane-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  fill: var(--muted);
+}
+
+.lane-label--output {
+  fill: var(--output);
+  font-weight: 700;
+}
+
+.axis {
+  stroke: #3a4257;
+  stroke-width: 2;
+}
+
+.playhead {
+  stroke: var(--playhead);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+  opacity: 0.9;
+}
+
+/* マーブル(値) */
+.marble {
+  opacity: 0;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.15s ease, transform 0.22s cubic-bezier(0.2, 0.8, 0.3, 1.5);
+}
+
+.marble.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.marble circle {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 1.5;
+}
+
+.marble text {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--on-marble);
+}
+
+.marble--source circle {
+  fill: var(--source);
+}
+
+.marble--output circle {
+  fill: var(--output);
+}
+
+.marble--error line {
+  stroke: #ef4444;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* 完了マーカー */
+.complete {
+  stroke: var(--text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.complete.is-visible {
+  opacity: 0.85;
+}
+
+/* ---- コード ---- */
+.code {
+  margin: 16px 0 0;
+  background: #0b0f1a;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  overflow-x: auto;
+}
+
+.code code {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  color: #d7dcec;
+  white-space: pre;
+}
+
+/* ---- フッター ---- */
+.app-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ---- 狭い画面 ---- */
+@media (max-width: 720px) {
+  .layout {
+    flex-direction: column;
+  }
+  .scenario-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: static;
+    flex-basis: auto;
+  }
+  .scenario-link {
+    flex: 1 1 140px;
+  }
+}
